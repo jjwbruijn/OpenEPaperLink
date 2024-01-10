@@ -26,6 +26,6 @@
 #define AP_EMULATE_TAG 1
 
 //hw types
-#define HW_TYPE					        0x60
+#define HW_TYPE					        0x58
 
 #endif

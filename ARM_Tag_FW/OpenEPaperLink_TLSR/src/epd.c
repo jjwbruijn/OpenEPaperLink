@@ -41,7 +41,7 @@ void set_EPD_model(uint8_t model_nr)
 // Here we detect what E-Paper display is connected
  void EPD_detect_model(void)
 {
-    epd_model = 6;
+    epd_model = 2;
     return;
     EPD_init();
     // system power
@@ -147,6 +147,8 @@ void set_EPD_model(uint8_t model_nr)
         epd_temperature = EPD_BWR_350_Display_start(full_or_partial);
     else if (epd_model == 6)
         epd_temperature = EPD_BWY_350_Display_start(full_or_partial);
+    else if (epd_model == 2)
+        epd_temperature = EPD_BWR_213_Display_start(full_or_partial);
     epd_temperature_is_read = 1;
     epd_update_state = 1;
 }
@@ -172,6 +174,8 @@ void set_EPD_model(uint8_t model_nr)
         EPD_BWR_350_Display_byte(data);
     else if (epd_model == 6)
         EPD_BWY_350_Display_byte(data);
+    else if (epd_model == 2)
+        EPD_BWR_213_Display_byte(data);
 }
 
  void EPD_Display_buffer(unsigned char *image, int size)
@@ -195,6 +199,8 @@ void set_EPD_model(uint8_t model_nr)
         EPD_BWR_350_Display_buffer(image, size);
     else if (epd_model == 6)
         EPD_BWY_350_Display_buffer(image, size);
+    else if (epd_model == 2)
+        EPD_BWR_213_Display_buffer(image, size);
 }
 
  void EPD_Display_color_change()
@@ -225,6 +231,8 @@ void set_EPD_model(uint8_t model_nr)
         EPD_BWR_350_Display_end();
     else if (epd_model == 6)
         EPD_BWY_350_Display_end();
+    else if (epd_model == 2)
+        EPD_BWR_213_Display_end();
     uint32_t timeout_counter = 60; // 60 Seconds timeout
     while (epd_state_handler())
     {
@@ -378,8 +386,8 @@ void set_EPD_model(uint8_t model_nr)
     }
     else if (epd_model == 4)
     {
-        resolution_w = 212;
-        resolution_h = 104;
+        resolution_w = 128;
+        resolution_h = 250;
     }
     else if (epd_model == 5)
     { // Just as placeholder right now, needs a complete different driving because of RAM limits
@@ -396,22 +404,22 @@ void set_EPD_model(uint8_t model_nr)
     obdFill(&obd, 0, 0); // fill with white
 
     char buff[100];
-    sprintf(buff, "Compiled:");
-    obdWriteString(&obd, 0, 0, 20, (char *)buff, FONT_8x8, 0, 0);
-    sprintf(buff, "%s %s", __DATE__, __TIME__);
-    obdWriteString(&obd, 0, 0, 21, (char *)buff, FONT_8x8, 0, 0);
-    sprintf(buff, "Tag MAC:", ownMacStr);
-    // obdWriteStringCustom(&obd, FONT_8x8, 0, 18, (char *)buff, 1);
-    obdWriteString(&obd, 0, 0, 17, (char *)buff, FONT_8x8, 0, 0);
-    sprintf(buff, "%s", ownMacStr);
-    // obdWriteStringCustom(&obd, FONT_8x8, 0, 18, (char *)buff, 1);
-    obdWriteString(&obd, 0, 0, 18, (char *)buff, FONT_8x8, 0, 0);
+    //sprintf(buff, "Compiled:");
+    //obdWriteString(&obd, 0, 0, 20, (char *)buff, FONT_8x8, 0, 0);
+    //sprintf(buff, "%s %s", __DATE__, __TIME__);
+    //obdWriteString(&obd, 0, 0, 21, (char *)buff, FONT_8x8, 0, 0);
+    //sprintf(buff, "Tag MAC:", ownMacStr);
+    //obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 18, (char *)buff, 1);
+    //obdWriteString(&obd, 0, 0, 17, (char *)buff, FONT_8x8, 0, 0);
+    sprintf(buff, ownMacStr);
+    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 115, (char *)buff, 1);
+    //obdWriteString(&obd, 0, 0, 18, (char *)buff, FONT_8x8, 0, 0);
     sprintf(buff, "OpenEpaperLink");
-    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 50, (char *)buff, 1);
-    sprintf(buff, "%s", str1);
-    obdWriteStringCustom(&obd, (GFXfont *)&Special_Elite_Regular_30, 10, 95, (char *)buff, 1);
+    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 25, (char *)buff, 1);
+    sprintf(buff, "AP Found", str1);
+    obdWriteStringCustom(&obd, (GFXfont *)&Special_Elite_Regular_30, 10, 85, (char *)buff, 1);
     sprintf(buff, "Battery %dmV", battery_mv);
-    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 120, (char *)buff, 1);
+    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 50, (char *)buff, 1);
     FixBuffer(epd_temp, epd_buffer, resolution_w, resolution_h);
     EPD_Display(epd_buffer, resolution_w * resolution_h / 8, full_or_partial);
 }
