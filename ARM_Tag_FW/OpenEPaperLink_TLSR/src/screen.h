@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define SCREEN_WIDTH				122
-#define SCREEN_HEIGHT				250
+#define SCREEN_WIDTH				250
+#define SCREEN_HEIGHT				128
 
 #define SCREEN_NUM_GREYS			5
 #define SCREEN_FIRST_GREY_IDX		0

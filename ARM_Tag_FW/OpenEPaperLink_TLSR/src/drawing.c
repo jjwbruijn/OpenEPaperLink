@@ -26,11 +26,11 @@ void drawImageAtAddress(uint32_t addr, uint8_t lut)
             }
             EPD_Display_byte(mClutMap[c % 256]);
         }
-        EPD_Display_color_change();
-        for (uint32_t c = 0; c < (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)); c++)
-        {
-            EPD_Display_byte(0x00);
-        }
+        // EPD_Display_color_change();
+        // for (uint32_t c = 0; c < (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)); c++)
+        // {
+        //     EPD_Display_byte(0x00);
+        // }
         EPD_Display_end();
         break;
 // case DATATYPE_IMG_RAW_1BPP:
@@ -75,15 +75,15 @@ void drawImageAtAddress(uint32_t addr, uint8_t lut)
             }
             EPD_Display_byte(mClutMap[c % 256]);
         }
-        EPD_Display_color_change();
-        for (uint32_t c = 0; c < (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)); c++)
-        {
-            if (c % 256 == 0)
-            {
-                eepromRead(addr + sizeof(struct EepromImageHeader) + (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)) + c, mClutMap, 256);
-            }
-            EPD_Display_byte(mClutMap[c % 256]);
-        }
+        // EPD_Display_color_change();
+        // for (uint32_t c = 0; c < (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)); c++)
+        // {
+        //     if (c % 256 == 0)
+        //     {
+        //         eepromRead(addr + sizeof(struct EepromImageHeader) + (SCREEN_HEIGHT * (SCREEN_WIDTH / 8)) + c, mClutMap, 256);
+        //     }
+        //     EPD_Display_byte(mClutMap[c % 256]);
+        // }
         EPD_Display_end();
         break;
     case DATATYPE_IMG_BMP:;
