@@ -41,8 +41,10 @@ void set_EPD_model(uint8_t model_nr)
 // Here we detect what E-Paper display is connected
  void EPD_detect_model(void)
 {
-    epd_model = 2;
+    // Here we force set a model, temporary, auto detect WIP, make something out of it ;)
+    epd_model = 1;
     return;
+
     EPD_init();
     // system power
     EPD_POWER_ON();
@@ -128,79 +130,60 @@ void set_EPD_model(uint8_t model_nr)
     gpio_write(EPD_RESET, 1);
     WaitMs(20);
 
-    /*if (epd_model == 1)
+    if (epd_model == 1)
         epd_temperature = EPD_BW_213_Display_start(full_or_partial);
     else if (epd_model == 2)
         epd_temperature = EPD_BWR_213_Display_start(full_or_partial);
-    else if (epd_model == 3)
-        epd_temperature = EPD_BWR_154_Display_start(full_or_partial);
-    else if (epd_model == 4)
-        epd_temperature = EPD_BW_213_ice_Display_start(full_or_partial);
-    else if (epd_model == 5)
-        epd_temperature = EPD_BWR_350_Display_start(full_or_partial);
-    else if (epd_model == 6)
-        epd_temperature = EPD_BWY_350_Display_start(full_or_partial);*/
-
-    if (epd_model == 4)
-        epd_temperature = EPD_BW_213_ice_Display_start(full_or_partial);
+    // else if (epd_model == 3)
+    //     epd_temperature = EPD_BWR_154_Display_start(full_or_partial);
+    // else if (epd_model == 4)
+    //     epd_temperature = EPD_BW_213_ice_Display_start(full_or_partial);
     else if (epd_model == 5)
         epd_temperature = EPD_BWR_350_Display_start(full_or_partial);
     else if (epd_model == 6)
         epd_temperature = EPD_BWY_350_Display_start(full_or_partial);
-    else if (epd_model == 2)
-        epd_temperature = EPD_BWR_213_Display_start(full_or_partial);
     epd_temperature_is_read = 1;
     epd_update_state = 1;
 }
 
  void EPD_Display_byte(uint8_t data)
 {
-    /*if (epd_model == 1)
-        epd_temperature = EPD_BW_213_Display_byte(data);
+    if (epd_model == 1)
+        EPD_BW_213_Display_byte(data);
     else if (epd_model == 2)
-        epd_temperature = EPD_BWR_213_Display_byte(data);
-    else if (epd_model == 3)
-        epd_temperature = EPD_BWR_154_Display_byte(data);
-    else if (epd_model == 4)
-        epd_temperature = EPD_BW_213_ice_Display_byte(data);
-    else if (epd_model == 5)
-        epd_temperature = EPD_BWR_350_Display_byte(data);
-    else if (epd_model == 6)
-        epd_temperature = EPD_BWY_350_Display_byte(data);*/
-
-    if (epd_model == 4)
-        EPD_BW_213_ice_Display_byte(data);
+        EPD_BWR_213_Display_byte(data);
+    // else if (epd_model == 3)
+    //     epd_temperature = EPD_BWR_154_Display_byte(data);
+    // else if (epd_model == 4)
+    //     epd_temperature = EPD_BW_213_ice_Display_byte(data);
+    // else if (epd_model == 5)
+    //     epd_temperature = EPD_BWR_350_Display_byte(data);
+    // else if (epd_model == 6)
+    //     epd_temperature = EPD_BWY_350_Display_byte(data);
     else if (epd_model == 5)
         EPD_BWR_350_Display_byte(data);
     else if (epd_model == 6)
         EPD_BWY_350_Display_byte(data);
-    else if (epd_model == 2)
-        EPD_BWR_213_Display_byte(data);
 }
 
  void EPD_Display_buffer(unsigned char *image, int size)
 {
-    /*if (epd_model == 1)
-        epd_temperature = EPD_BW_213_Display_buffer(image, size);
+    if (epd_model == 1)
+        EPD_BW_213_Display_buffer(image, size);
     else if (epd_model == 2)
-        epd_temperature = EPD_BWR_213_Display_buffer(image, size);
-    else if (epd_model == 3)
-        epd_temperature = EPD_BWR_154_Display_buffer(image, size);
-    else if (epd_model == 4)
-        epd_temperature = EPD_BW_213_ice_Display_buffer(image, size);
-    else if (epd_model == 5)
-        epd_temperature = EPD_BWR_350_Display_buffer(image, size);
-    else if (epd_model == 6)
-        epd_temperature = EPD_BWY_350_Display_buffer(image, size);*/
-
-    if (epd_model == 4)
-        EPD_BW_213_ice_Display_buffer(image, size);
+        EPD_BWR_213_Display_buffer(image, size);
+    // else if (epd_model == 3)
+    //     epd_temperature = EPD_BWR_154_Display_buffer(image, size);
+    // else if (epd_model == 4)
+    //     epd_temperature = EPD_BW_213_ice_Display_buffer(image, size);
+    // else if (epd_model == 5)
+    //     epd_temperature = EPD_BWR_350_Display_buffer(image, size);
+    // else if (epd_model == 6)
+    //     epd_temperature = EPD_BWY_350_Display_buffer(image, size);
     else if (epd_model == 5)
         EPD_BWR_350_Display_buffer(image, size);
     else if (epd_model == 6)
         EPD_BWY_350_Display_buffer(image, size);
-    else if (epd_model == 2)
-        EPD_BWR_213_Display_buffer(image, size);
 }
 
  void EPD_Display_color_change()
@@ -213,26 +196,23 @@ void set_EPD_model(uint8_t model_nr)
 
  void EPD_Display_end()
 {
-    /*if (epd_model == 1)
-        epd_temperature = EPD_BW_213_Display_end();
+    if (epd_model == 1)
+        EPD_BW_213_Display_end();
     else if (epd_model == 2)
-        epd_temperature = EPD_BWR_213_Display_end();
-    else if (epd_model == 3)
-        epd_temperature = EPD_BWR_154_Display_end();
-    else if (epd_model == 4)
-        epd_temperature = EPD_BW_213_ice_Display_end();
-    else if (epd_model == 5)
-        epd_temperature = EPD_BWR_350_Display_end();
-    else if (epd_model == 6)
-        epd_temperature = EPD_BWY_350_Display_end();*/
-    if (epd_model == 4)
-        EPD_BW_213_ice_Display_end();
+        EPD_BWR_213_Display_end();
+    // else if (epd_model == 3)
+    //     epd_temperature = EPD_BWR_154_Display_end();
+    // else if (epd_model == 4)
+    //     epd_temperature = EPD_BW_213_ice_Display_end();
+    // else if (epd_model == 5)
+    //     epd_temperature = EPD_BWR_350_Display_end();
+    // else if (epd_model == 6)
+    //     epd_temperature = EPD_BWY_350_Display_end();
     else if (epd_model == 5)
         EPD_BWR_350_Display_end();
     else if (epd_model == 6)
         EPD_BWY_350_Display_end();
-    else if (epd_model == 2)
-        EPD_BWR_213_Display_end();
+
     uint32_t timeout_counter = 60; // 60 Seconds timeout
     while (epd_state_handler())
     {
@@ -295,7 +275,6 @@ void set_EPD_model(uint8_t model_nr)
 {
     if (!epd_model)
         EPD_detect_model();
-
     if (epd_model == 1)
         EPD_BW_213_set_sleep();
     else if (epd_model == 2)
@@ -308,7 +287,6 @@ void set_EPD_model(uint8_t model_nr)
         EPD_BWR_350_set_sleep();
     else if (epd_model == 6)
         EPD_BWY_350_set_sleep();
-
     EPD_POWER_OFF();
     epd_update_state = 0;
 }
@@ -404,22 +382,43 @@ void set_EPD_model(uint8_t model_nr)
     obdFill(&obd, 0, 0); // fill with white
 
     char buff[100];
-    //sprintf(buff, "Compiled:");
-    //obdWriteString(&obd, 0, 0, 20, (char *)buff, FONT_8x8, 0, 0);
-    //sprintf(buff, "%s %s", __DATE__, __TIME__);
-    //obdWriteString(&obd, 0, 0, 21, (char *)buff, FONT_8x8, 0, 0);
-    //sprintf(buff, "Tag MAC:", ownMacStr);
-    //obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 18, (char *)buff, 1);
-    //obdWriteString(&obd, 0, 0, 17, (char *)buff, FONT_8x8, 0, 0);
-    sprintf(buff, ownMacStr);
-    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 115, (char *)buff, 1);
-    //obdWriteString(&obd, 0, 0, 18, (char *)buff, FONT_8x8, 0, 0);
-    sprintf(buff, "OpenEpaperLink");
-    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 25, (char *)buff, 1);
-    sprintf(buff, "AP Found", str1);
-    obdWriteStringCustom(&obd, (GFXfont *)&Special_Elite_Regular_30, 10, 85, (char *)buff, 1);
-    sprintf(buff, "Battery %dmV", battery_mv);
-    obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 50, (char *)buff, 1);
+    
+    if (epd_model == 1)
+    {
+        //sprintf(buff, "Compiled:");
+        //obdWriteString(&obd, 0, 0, 20, (char *)buff, FONT_8x8, 0, 0);
+        //sprintf(buff, "%s %s", __DATE__, __TIME__);
+        //obdWriteString(&obd, 0, 0, 21, (char *)buff, FONT_8x8, 0, 0);
+        //sprintf(buff, "Tag MAC:", ownMacStr);
+        //obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 18, (char *)buff, 1);
+        //obdWriteString(&obd, 0, 0, 17, (char *)buff, FONT_8x8, 0, 0);
+        sprintf(buff, ownMacStr);
+        obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 115, (char *)buff, 1);
+        sprintf(buff, "OpenEpaperLink");
+        obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 25, (char *)buff, 1);
+        sprintf(buff, "AP Found", str1);
+        obdWriteStringCustom(&obd, (GFXfont *)&Special_Elite_Regular_30, 10, 85, (char *)buff, 1);
+        sprintf(buff, "Battery %dmV", battery_mv);
+        obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 50, (char *)buff, 1);
+    } else
+    {
+        sprintf(buff, "Compiled:");
+        obdWriteString(&obd, 0, 0, 20, (char *)buff, FONT_8x8, 0, 0);
+        sprintf(buff, "%s %s", __DATE__, __TIME__);
+        obdWriteString(&obd, 0, 0, 21, (char *)buff, FONT_8x8, 0, 0);
+        sprintf(buff, "Tag MAC:", ownMacStr);
+        // obdWriteStringCustom(&obd, FONT_8x8, 0, 18, (char *)buff, 1);
+        obdWriteString(&obd, 0, 0, 17, (char *)buff, FONT_8x8, 0, 0);
+        sprintf(buff, "%s", ownMacStr);
+        // obdWriteStringCustom(&obd, FONT_8x8, 0, 18, (char *)buff, 1);
+        obdWriteString(&obd, 0, 0, 18, (char *)buff, FONT_8x8, 0, 0);
+        sprintf(buff, "OpenEpaperLink");
+        obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 50, (char *)buff, 1);
+        sprintf(buff, "%s", str1);
+        obdWriteStringCustom(&obd, (GFXfont *)&Special_Elite_Regular_30, 10, 95, (char *)buff, 1);
+        sprintf(buff, "Battery %dmV", battery_mv);
+        obdWriteStringCustom(&obd, (GFXfont *)&Dialog_plain_16, 10, 120, (char *)buff, 1);
+    }
     FixBuffer(epd_temp, epd_buffer, resolution_w, resolution_h);
     EPD_Display(epd_buffer, resolution_w * resolution_h / 8, full_or_partial);
 }
