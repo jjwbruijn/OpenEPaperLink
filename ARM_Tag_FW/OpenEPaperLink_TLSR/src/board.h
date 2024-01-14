@@ -26,6 +26,10 @@
 #define AP_EMULATE_TAG 1
 
 //hw types
-#define HW_TYPE					        0x60
+#define HW_TYPE					        0x58 // BW 2.13
+//#define HW_TYPE					        0x59 // BWR 2.13
+//#define HW_TYPE					        0x60 // BWY 3.5
+//#define HW_TYPE					        0x61 // BWR 3.5
+//#define HW_TYPE					        0x62 // BW 3.5
 
 #endif
